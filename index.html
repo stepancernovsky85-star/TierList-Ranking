@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MC PVP Rankings</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#090e13;color:#f1f5f9;font-family:Arial,sans-serif}
+header{background:#111a23;border-bottom:1px solid #263642;padding:20px 6%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px}
+.logo{font-size:22px;font-weight:900}.logo span{color:#35df86}
+nav{display:flex;gap:18px;flex-wrap:wrap}
+nav a{color:#bac6cf;text-decoration:none;font-size:14px}
+nav a:hover{color:#35df86}
+.hero{text-align:center;padding:75px 15px;background:radial-gradient(ellipse at top,#17432f,#090e13 70%)}
+.hero small{color:#35df86;letter-spacing:4px;font-weight:bold}
+h1{font-size:clamp(36px,7vw,65px);margin:18px 0}
+h1 span{color:#35df86}
+.hero p,.muted{color:#91a2ae;line-height:1.7}
+.btn{display:inline-block;background:#35df86;color:#07140c;padding:13px 20px;border-radius:7px;text-decoration:none;font-weight:bold;margin:10px 5px}
+main{max-width:1150px;margin:auto;padding:35px 20px}
+h2{font-size:25px}
+.toolbar{display:flex;gap:10px;margin:20px 0;flex-wrap:wrap}
+input,select{background:#141e27;color:white;border:1px solid #344652;padding:13px;border-radius:7px}
+input{flex:1;min-width:180px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:13px}
+.kit{background:#121c25;border:1px solid #283b46;padding:20px;border-radius:10px;transition:.2s}
+.kit:hover{border-color:#35df86;transform:translateY(-3px)}
+.kit .icon{font-size:27px}
+.kit h3{margin:12px 0 5px}
+.kit p{color:#899aa7;font-size:12px}
+.kit a{color:#35df86;text-decoration:none;font-weight:bold;font-size:13px}
+.tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:8px}
+.tier{padding:15px 8px;text-align:center;border-radius:7px;color:#101010;font-weight:bold}
+.note{background:#14251d;border:1px solid #28613f;padding:17px;border-radius:8px;color:#c5e8d2;line-height:1.6}
+footer{text-align:center;padding:35px;color:#81919c;border-top:1px solid #263642;font-size:12px;margin-top:45px}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">MC <span>PVP</span> RANKINGS</div>
+<nav>
+<a href="#home">Home</a>
+<a href="#kits">Kits</a>
+<a href="#tiers">Tiers</a>
+<a href="#official">Official</a>
+</nav>
+</header>
+
+<section class="hero" id="home">
+<small>MINECRAFT PVP COMMUNITY</small>
+<h1>MC PVP <span>RANKINGS</span></h1>
+<p>Explore Minecraft PvP kits and official player rankings.</p>
+<a class="btn" href="#kits">EXPLORE KITS ↓</a>
+<a class="btn" href="https://mcpvp.com/tiers" target="_blank">OFFICIAL MCPVP ↗</a>
+</section>
+
+<main>
+<section id="kits">
+<h2>⚔️ ALL PVP KITS</h2>
+<p class="muted">Choose your kit and open the official rankings.</p>
+<div class="toolbar">
+<input id="search" placeholder="Search kits..." oninput="render()">
+<select id="version" onchange="render()">
+<option value="beta">Beta</option>
+<option value="legacy">Legacy</option>
+</select>
+</div>
+<div class="grid" id="grid"></div>
+</section>
+
+<section id="tiers" style="margin-top:55px">
+<h2>🏆 TIER SYSTEM</h2>
+<p class="muted">Tier labels for Minecraft PvP players. Check official thresholds on MCPVP.</p>
+<div class="tiers">
+<div class="tier" style="background:#ffc45c">HT1</div>
+<div class="tier" style="background:#ffdc7a">LT1</div>
+<div class="tier" style="background:#b99cff">HT2</div>
+<div class="tier" style="background:#d2baff">LT2</div>
+<div class="tier" style="background:#79c8ff">HT3</div>
+<div class="tier" style="background:#a9ddff">LT3</div>
+<div class="tier" style="background:#8ed9a5">HT4</div>
+<div class="tier" style="background:#b7ebc7">LT4</div>
+<div class="tier" style="background:#e3e3e3">HT5</div>
+<div class="tier" style="background:#eeeeee">LT5</div>
+</div>
+</section>
+
+<section id="official" style="margin-top:50px">
+<h2>🌍 OFFICIAL RANKINGS</h2>
+<div class="note">Official player results and tiers are maintained by MCPVP. This website links to the original source and does not invent player rankings.</div>
+<a class="btn" href="https://mcpvp.com/tiers" target="_blank">VIEW OFFICIAL TIERS ↗</a>
+</section>
+</main>
+<footer>MC PVP RANKINGS · Independent Minecraft community project · Not affiliated with MCPVP</footer>
+
+<script>
+const kits=[
+["End Game","⚔️"],["Sword","🗡️"],["Spear","🔱"],["Mace","🔨"],
+["Early Game","🌱"],["Shield","🛡️"],["Pot","🧪"],["Late Game","🌙"],
+["Diamond SMP","💎"],["Netherite Pot","🔥"],["Creeper","💚"],
+["Cart","🚃"],["SMP","🌍"],["Crystal","💠"],["Bow","🏹"],["UHC","❤️"]
+];
+function render(){
+let q=document.getElementById("search").value.toLowerCase();
+let version=document.getElementById("version").value;
+let url="https://mcpvp.com/tiers";
+if(version==="legacy")url+="?version=legacy";
+document.getElementById("grid").innerHTML="";
+kits.filter(k=>k[0].toLowerCase().includes(q)).forEach(k=>{
+let div=document.createElement("div");
+div.className="kit";
+let icon=document.createElement("div");
+icon.className="icon";icon.textContent=k[1];
+let h=document.createElement("h3");h.textContent=k[0];
+let p=document.createElement("p");p.textContent="Official MCPVP rankings";
+let a=document.createElement("a");a.href=url;a.target="_blank";a.rel="noopener";a.textContent="VIEW RANKINGS ↗";
+div.append(icon,h,p,a);
+document.getElementById("grid").append(div);
+});
+}
+render();
+</script>
+</body>
+</html>
